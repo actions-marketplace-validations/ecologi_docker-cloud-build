@@ -1,4 +1,4 @@
-name: "Docker Cloud Build"
+name: "SU GCP Cloud Build"
 description: "Builds a docker image using Google Cloud Build and pushes it to Google Container Registry."
 author: "Alexander Praschek <alexander.praschek@flowsquad.io>"
 inputs:
@@ -108,5 +108,5 @@ runs:
   using: "node12"
   main: "dist/index.js"
 branding:
-  color: "blue"
+  color: "pink"
   icon: "package"
