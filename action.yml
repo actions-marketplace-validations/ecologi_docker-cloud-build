@@ -108,5 +108,5 @@ runs:
   using: "node12"
   main: "dist/index.js"
 branding:
-  color: "pink"
+  color: "red"
   icon: "package"
