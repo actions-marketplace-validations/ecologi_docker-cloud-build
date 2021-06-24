@@ -18,8 +18,8 @@
     "url": "ssh://git@github.com/FlowSquad/docker-cloud-build.git"
   },
   "scripts": {
-    "build": "eslint src && tsc",
-    "dist": "eslint src && ncc cache clean && ncc build src/index.ts -o dist --minify --no-cache --target es2019 --license licenses.txt",
+    "build": "tsc",
+    "dist": "ncc cache clean && ncc build src/index.ts -o dist --minify --no-cache --target es2019 --license licenses.txt",
     "lint": "eslint src"
   },
   "dependencies": {
