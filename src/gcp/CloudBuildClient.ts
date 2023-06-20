@@ -81,7 +81,7 @@ export class CloudBuildClient {
                 id: "Pull previous latest image for layer caching",
                 name: "gcr.io/cloud-builders/docker",
                 entrypoint: "bash",
-                args: [`-c`, `docker pull ${latestImagePath} || exit 0`],
+                args: [`-c`, `"docker pull ${latestImagePath} || exit 0"`],
               }
             : null,
           {
