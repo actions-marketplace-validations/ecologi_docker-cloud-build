@@ -29,7 +29,7 @@ export class TagHelper {
     switch (this.contextHelper.getActionType()) {
       case "pr":
       case "commit":
-        tags.push(this.createBranchTag(tagFormat) + (includeLatest ? `-latest` : ""));
+        tags.push(this.formatTag(tagFormat) + (includeLatest ? `-latest` : ""));
         break;
       // Fall-Through
       case "tag":
@@ -39,7 +39,7 @@ export class TagHelper {
         break;
     }
 
-    tags.push(...additionalTags);
+    tags.push(...additionalTags.map((t) => this.formatTag(t)));
 
     return {
       allTags: tags,
@@ -51,9 +51,8 @@ export class TagHelper {
    * Creates the primary branch tag.
    *
    * @param tagFormat The format to use
-   * @private
    */
-  private createBranchTag(tagFormat: string): string {
+  public formatTag(tagFormat: string): string {
     const githubSha = process.env.GITHUB_SHA!;
     const now = new Date();
 

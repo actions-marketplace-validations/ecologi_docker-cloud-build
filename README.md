@@ -160,7 +160,7 @@ jobs:
           image-sources: build/libs/*.jar,Dockerfile
           image-tag-format: $BRANCH-$SHA-$YYYY$MM$DD-$HH$mm$SS # Optional
           image-tag-latest: true # Optional
-          image-tag-additional-tags: tag1,tag2,tag3 # Optional
+          image-tag-additional-tags: tag1,$BRANCH-tag2,tag3-$SHA # Optional
           github-token: ${{ secrets.GITHUB_TOKEN }}
           github-commit-status-all: true # Optional
           github-commit-status-description: tiny # Optional
