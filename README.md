@@ -1,4 +1,10 @@
-Fork of : <https://github.com/FlowSquad/docker-cloud-build> to add support for `pull_request` event type, for internal use at StageUp
+Fork of: <https://github.com/FlowSquad/docker-cloud-build> for internal use at
+Ecologi.
+
+Adds support for the following:
+
+- `pull_request`: action event type
+- `gcp-machine-type`: resource to use for the build
 
 ---
 
