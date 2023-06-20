@@ -86,9 +86,12 @@ async function run(): Promise<void> {
       path: input.image.path,
       rootFolder: rootFolder,
       tags: tagInformation.allTags,
-      machineType: input.gcp.machineType,
     },
-    projectId: input.gcp.projectId,
+    gcp: {
+      region: input.gcp.gcr.host,
+      machineType: input.gcp.machineType,
+      projectId: input.gcp.projectId,
+    },
   });
 
   // 7. Remove no longer required files

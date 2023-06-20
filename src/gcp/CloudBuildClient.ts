@@ -10,7 +10,6 @@ import IBuildOperationMetadata = google.devtools.cloudbuild.v1.IBuildOperationMe
 import Operation = google.longrunning.Operation;
 
 export interface CloudBuildOptions {
-  projectId: string;
   source: {
     bucket: string;
     path: string;
@@ -20,7 +19,11 @@ export interface CloudBuildOptions {
     path: string | undefined;
     tags: string[];
     rootFolder: string;
+  };
+  gcp: {
     machineType: "UNSPECIFIED" | "N1_HIGHCPU_8" | "N1_HIGHCPU_32" | "E2_HIGHCPU_8" | "E2_HIGHCPU_32";
+    region: string;
+    projectId: string;
   };
 }
 
@@ -55,6 +58,11 @@ export class CloudBuildClient {
   public async buildDockerImage(options: CloudBuildOptions): Promise<CloudBuildResult> {
     const imageNames = options.build.tags.map((tag) => `${options.build.image}:${tag}`);
 
+    // We can make use of layer caching to improve build performance, if a latest image for this tag exists
+    const nonNullable = <T>(v: T): v is NonNullable<T> => v !== null && v !== undefined;
+    const latestTag = imageNames.find((n) => n.endsWith("latest"));
+    const latestImage = latestTag ? `${options.gcp.region}/${options.gcp.projectId}/${latestTag}` : undefined;
+
     const buildOptions: google.devtools.cloudbuild.v1.ICreateBuildRequest = {
       build: {
         source: {
@@ -64,24 +72,37 @@ export class CloudBuildClient {
           },
         },
         steps: [
+          latestImage
+            ? {
+                id: "Pull previous latest image for layer caching",
+                name: "gcr.io/cloud-builders/docker",
+                entrypoint: "bash",
+                args: [`-c docker pull ${latestImage} || exit 0`],
+              }
+            : null,
           {
             name: "gcr.io/cloud-builders/docker",
             id: "Build",
             args: [
               "build",
-              ...imageNames.flatMap((name) => ["--tag", name]),
+              // Try use the previously built image layers as a cache
+              latestImage ? `--cache-from ${latestImage}` : null,
+              // Specify custom Dockerfile
               options.build.path ? `--file=${path.join(options.build.rootFolder, options.build.path)}` : null,
+              // Image tags
+              ...imageNames.flatMap((name) => ["--tag", name]),
+              // Extracted .gz path
               options.build.rootFolder,
-            ].filter((arg): arg is string => arg !== null),
+            ].filter(nonNullable),
           },
-        ],
+        ].filter(nonNullable),
         options: {
-          machineType: options.build.machineType,
+          machineType: options.gcp.machineType,
         },
         images: imageNames,
-        projectId: options.projectId,
+        projectId: options.gcp.projectId,
       },
-      projectId: options.projectId,
+      projectId: options.gcp.projectId,
     };
 
     let result: IBuild | undefined;

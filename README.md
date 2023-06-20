@@ -6,6 +6,7 @@ Adds support for the following:
 - `pull_request`: action event type
 - `gcp-machine-type`: resource to use for the build
 - `image-path`: Dockerfile path other than in the root directory
+- Re-uses previous image layers as a cache to improve performance
 
 ---
 
