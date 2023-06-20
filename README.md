@@ -16,8 +16,8 @@ Build and Google Container Registry. It also has some more features:
 - Build images for commits and tags
 - Include files by specifying wildcard patterns
 - Custom image tag format using branch name, hash, date, and time
-- Add more tags such as latest, branch-latest or custom constants
-- **Supports GitHub Commit Status**: Add the built images to your commit status
+- Add more tags such as latest or custom constants
+- **Supports GitHub Commit Status**: Add the auilt images to your commit status
 - **Supports GitHub Releases**: Add the built images to your release notes
 
 ## Usage
@@ -69,8 +69,7 @@ these options.
 
 | Option                      | Meaning                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `image-tag-latest`          | Set this to `true` to add the `latest` tag to the image.                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `image-tag-branch-latest`   | Set this to `true` to add the `${branch}-latest` tag to <br> the image.                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `image-tag-latest`          | Set this to `true` to append `-latest` tag to the image format.                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | `image-tag-additional-tags` | Set this to a comma-separated list of values to specify <br> additional tags.                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `image-tag-format`          | Specify the format of the default tag if it is caused by <br> a commit. You can use the following placeholders:<pre>$BRANCH     The branch name, normalized.<br>$SHA The 7-digit SHA of the commit<br>$YYYY       The year in 4-digit format<br>$MM The month in 2-digit format<br>$DD         The day in 2-digit format<br>$HH The hour in 2-digit format (24h)<br>$mm         The minute in 2-digit-format<br>$SS The second in 2-digit-format</pre> Default: `$BRANCH-$SHA-$YYYY.$MM.$DD-$HH.$mm.$SS`. |
 
@@ -159,7 +158,6 @@ jobs:
           image-sources: build/libs/*.jar,Dockerfile
           image-tag-format: $BRANCH-$SHA-$YYYY$MM$DD-$HH$mm$SS # Optional
           image-tag-latest: true # Optional
-          image-tag-branch-latest: true # Optional
           image-tag-additional-tags: tag1,tag2,tag3 # Optional
           github-token: ${{ secrets.GITHUB_TOKEN }}
           github-commit-status-all: true # Optional
