@@ -1,6 +1,7 @@
 import * as core from "@actions/core";
 import { CloudBuildClient as BuildClient } from "@google-cloud/cloudbuild";
 import { google } from "@google-cloud/cloudbuild/build/protos/protos";
+import path from "path";
 import { delay } from "../util/util";
 import { CloudAuthenticationHelper } from "./CloudAuthenticationHelper";
 import Status = google.devtools.cloudbuild.v1.Build.Status;
@@ -69,7 +70,7 @@ export class CloudBuildClient {
             args: [
               "build",
               ...imageNames.flatMap((name) => ["--tag", name]),
-              options.build.path ? `--file=${options.build.path}` : null,
+              options.build.path ? `--file=${path.join(options.build.rootFolder, options.build.path)}` : null,
               options.build.rootFolder,
             ].filter((arg): arg is string => arg !== null),
           },
