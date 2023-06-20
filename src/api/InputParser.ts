@@ -22,6 +22,7 @@ export interface InputParams {
   image: {
     name: string;
     sources: string[];
+    path: string | undefined;
     tags: {
       format: string;
       latest: boolean;
@@ -107,6 +108,7 @@ export const parseInput = (): InputParams => {
   ) as CloudBuildOptions["build"]["machineType"];
 
   const imageName = getRequiredStringParam("image-name");
+  const imagePath = core.getInput("image-path", { required: false }) || undefined;
   const imageSources = getRequiredStringArrayParam("image-sources");
   const imageTagFormat = getOptionalStringParam("image-tag-format", "$BRANCH-$SHA-$YYYY.$MM.$DD-$HH.$mm.$SS");
   const imageTagLatest = getOptionalBooleanParam("image-tag-latest", false);
@@ -168,6 +170,7 @@ export const parseInput = (): InputParams => {
     image: {
       name: imageName,
       sources: imageSources,
+      path: imagePath,
       tags: {
         format: imageTagFormat,
         latest: imageTagLatest,

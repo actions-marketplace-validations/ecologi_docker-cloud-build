@@ -5,6 +5,7 @@ Adds support for the following:
 
 - `pull_request`: action event type
 - `gcp-machine-type`: resource to use for the build
+- `image-path`: Dockerfile path other than in the root directory
 
 ---
 
@@ -60,6 +61,7 @@ To build the image successfully, you have to specify at least these options.
 | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `image-name`    | **Required.** The name of the image to build.                                                                                                                                                                                                                                                                                                                       |
 | `image-sources` | **Required.** The sources to use to build the image. <br><br> You can include any source files that are within your GitHub workspace, <br> such as build artifacts or Dockerfiles. The option also supports globstar <br> wildcards such as `?`, `*`, `**`, or `[...]`. Read [this](https://github.com/actions/toolkit/tree/master/packages/glob) for more details. |
+| `image-path`    | Path to the Dockerfile, e.g. `./customDockerfile`                                                                                                                                                                                                                                                                                                                   |
 
 ### Tagging the image
 

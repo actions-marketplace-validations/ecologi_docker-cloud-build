@@ -28,6 +28,10 @@ inputs:
     required: true
     description: >-
       The name of the built image.
+  image-path:
+    required: false
+    description: >-
+      The path to the Dockerfile, e.g. ./customDockerfile
   image-sources:
     required: true
     description: >-

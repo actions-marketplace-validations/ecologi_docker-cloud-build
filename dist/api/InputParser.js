@@ -72,6 +72,7 @@ const parseInput = () => {
     const gcpGcrRegion = getOptionalStringParam("gcp-gcr-region", "eu.gcr.io");
     const gcpMachineType = getOptionalStringParam("gcp-machine-type", "UNSPECIFIED");
     const imageName = getRequiredStringParam("image-name");
+    const imagePath = getOptionalStringParam("image-path", "./Dockerfile");
     const imageSources = getRequiredStringArrayParam("image-sources");
     const imageTagFormat = getOptionalStringParam("image-tag-format", "$BRANCH-$SHA-$YYYY.$MM.$DD-$HH.$mm.$SS");
     const imageTagLatest = getOptionalBooleanParam("image-tag-latest", false);
@@ -125,6 +126,7 @@ const parseInput = () => {
         image: {
             name: imageName,
             sources: imageSources,
+            path: imagePath,
             tags: {
                 format: imageTagFormat,
                 latest: imageTagLatest,

@@ -16,6 +16,7 @@ export interface CloudBuildOptions {
   };
   build: {
     image: string;
+    path: string | undefined;
     tags: string[];
     rootFolder: string;
     machineType: "UNSPECIFIED" | "N1_HIGHCPU_8" | "N1_HIGHCPU_32" | "E2_HIGHCPU_8" | "E2_HIGHCPU_32";
@@ -67,10 +68,10 @@ export class CloudBuildClient {
             id: "Build",
             args: [
               "build",
-              // Make each tag to a "-t $tag" argument
-              ...imageNames.flatMap((name) => ["-t", name]),
+              ...imageNames.flatMap((name) => ["--tag", name]),
+              options.build.path ? `--file=${options.build.path}` : null,
               options.build.rootFolder,
-            ],
+            ].filter((arg): arg is string => arg !== null),
           },
         ],
         options: {

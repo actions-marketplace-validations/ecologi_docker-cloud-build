@@ -83,6 +83,7 @@ async function run(): Promise<void> {
     },
     build: {
       image: imageName,
+      path: input.image.path,
       rootFolder: rootFolder,
       tags: tagInformation.allTags,
       machineType: input.gcp.machineType,
