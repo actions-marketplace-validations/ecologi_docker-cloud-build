@@ -75,7 +75,6 @@ const parseInput = () => {
     const imageSources = getRequiredStringArrayParam("image-sources");
     const imageTagFormat = getOptionalStringParam("image-tag-format", "$BRANCH-$SHA-$YYYY.$MM.$DD-$HH.$mm.$SS");
     const imageTagLatest = getOptionalBooleanParam("image-tag-latest", false);
-    const imageTagBranchLatest = getOptionalBooleanParam("image-tag-branch-latest", false);
     const imageTagAdditionalTags = getOptionalStringArrayParam("image-tag-additional-tags", []);
     const githubToken = getOptionalStringParam("github-token", "");
     const githubDisabled = getOptionalBooleanParam("github-disabled", false);
@@ -129,7 +128,6 @@ const parseInput = () => {
             tags: {
                 format: imageTagFormat,
                 latest: imageTagLatest,
-                branchLatest: imageTagBranchLatest,
                 additionalTags: imageTagAdditionalTags,
             },
         },

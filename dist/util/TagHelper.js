@@ -15,18 +15,16 @@ class TagHelper {
      * Generates a list of tags to use for the image.
      *
      * @param tagFormat The format of the primary branch tag
-     * @param includeLatest Whether to include the 'latest' tag
-     * @param includeBranchLatest Whether to include the '$branch-latest' tag
+     * @param includeLatest Whether to append the 'latest' tag
      * @param additionalTags Additional tags to include
      */
-    getTags(tagFormat, includeLatest, includeBranchLatest, additionalTags) {
+    getTags(tagFormat, includeLatest, additionalTags) {
         const tags = [];
         const normalizedRefName = this.contextHelper.getNormalizedRefName();
         switch (this.contextHelper.getActionType()) {
             case "pr":
             case "commit":
-                tags.push(this.createBranchTag(tagFormat));
-                includeBranchLatest && tags.push(`${normalizedRefName}-latest`);
+                tags.push(this.createBranchTag(tagFormat) + (includeLatest ? `-latest` : ""));
                 break;
             // Fall-Through
             case "tag":
@@ -35,7 +33,6 @@ class TagHelper {
                 tags.push(normalizedRefName);
                 break;
         }
-        includeLatest && tags.push("latest");
         tags.push(...additionalTags);
         return {
             allTags: tags,

@@ -53,11 +53,7 @@ inputs:
   image-tag-latest:
     required: false
     description: >-
-      Whether the built image will be tagged with latest. Defaults to false.
-  image-tag-branch-latest:
-    required: false
-    description: >-
-      Whether the built image will be tagged with ${branchName}-latest. Defaults to false.
+      Whether the built image will be appended with latest. Defaults to false.
   image-tag-additional-tags:
     required: false
     description: >-

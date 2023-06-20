@@ -65,7 +65,6 @@ async function run(): Promise<void> {
   const tagInformation = tagHelper.getTags(
     input.image.tags.format,
     input.image.tags.latest,
-    input.image.tags.branchLatest,
     input.image.tags.additionalTags
   );
 

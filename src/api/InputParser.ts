@@ -25,7 +25,6 @@ export interface InputParams {
     tags: {
       format: string;
       latest: boolean;
-      branchLatest: boolean;
       additionalTags: string[];
     };
   };
@@ -111,7 +110,6 @@ export const parseInput = (): InputParams => {
   const imageSources = getRequiredStringArrayParam("image-sources");
   const imageTagFormat = getOptionalStringParam("image-tag-format", "$BRANCH-$SHA-$YYYY.$MM.$DD-$HH.$mm.$SS");
   const imageTagLatest = getOptionalBooleanParam("image-tag-latest", false);
-  const imageTagBranchLatest = getOptionalBooleanParam("image-tag-branch-latest", false);
   const imageTagAdditionalTags = getOptionalStringArrayParam("image-tag-additional-tags", []);
 
   const githubToken = getOptionalStringParam("github-token", "");
@@ -173,7 +171,6 @@ export const parseInput = (): InputParams => {
       tags: {
         format: imageTagFormat,
         latest: imageTagLatest,
-        branchLatest: imageTagBranchLatest,
         additionalTags: imageTagAdditionalTags,
       },
     },
