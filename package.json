@@ -19,7 +19,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "dist": "ncc cache clean && ncc build src/index.ts -o dist --minify --no-cache --target es2019 --license licenses.txt",
+    "release": "ncc cache clean && ncc build src/index.ts -o dist --minify --no-cache --target es2019 --license licenses.txt",
     "lint": "eslint src"
   },
   "dependencies": {
