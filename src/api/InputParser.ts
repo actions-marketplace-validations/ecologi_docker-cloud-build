@@ -17,7 +17,7 @@ export interface InputParams {
     gcr: {
       host: GcrRegion;
     };
-    machineType: CloudBuildOptions["build"]["machineType"];
+    machineType: CloudBuildOptions["gcp"]["machineType"];
   };
   image: {
     name: string;
@@ -105,7 +105,7 @@ export const parseInput = (): InputParams => {
   const gcpMachineType = getOptionalStringParam(
     "gcp-machine-type",
     "UNSPECIFIED"
-  ) as CloudBuildOptions["build"]["machineType"];
+  ) as CloudBuildOptions["gcp"]["machineType"];
 
   const imageName = getRequiredStringParam("image-name");
   const imagePath = core.getInput("image-path", { required: false }) || undefined;

@@ -60,8 +60,12 @@ export class CloudBuildClient {
 
     // We can make use of layer caching to improve build performance, if a latest image for this tag exists
     const nonNullable = <T>(v: T): v is NonNullable<T> => v !== null && v !== undefined;
-    const latestTag = imageNames.find((n) => n.endsWith("latest"));
-    const latestImage = latestTag ? `${options.gcp.region}/${options.gcp.projectId}/${latestTag}` : undefined;
+    const latestImage = imageNames.find((n) => n.endsWith("latest"));
+    const latestImagePath = latestImage ? `${options.gcp.region}/${options.gcp.projectId}/${latestImage}` : undefined;
+
+    core.info(imageNames.join(" "));
+    core.info(latestImage || "No latest image");
+    core.info(latestImagePath || "No image path");
 
     const buildOptions: google.devtools.cloudbuild.v1.ICreateBuildRequest = {
       build: {
@@ -72,12 +76,12 @@ export class CloudBuildClient {
           },
         },
         steps: [
-          latestImage
+          latestImagePath
             ? {
                 id: "Pull previous latest image for layer caching",
                 name: "gcr.io/cloud-builders/docker",
                 entrypoint: "bash",
-                args: [`-c docker pull ${latestImage} || exit 0`],
+                args: [`-c docker pull ${latestImagePath} || exit 0`],
               }
             : null,
           {
@@ -86,7 +90,7 @@ export class CloudBuildClient {
             args: [
               "build",
               // Try use the previously built image layers as a cache
-              latestImage ? `--cache-from ${latestImage}` : null,
+              latestImagePath ? `--cache-from ${latestImagePath}` : null,
               // Specify custom Dockerfile
               options.build.path ? `--file=${path.join(options.build.rootFolder, options.build.path)}` : null,
               // Image tags
