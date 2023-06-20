@@ -1,12 +1,12 @@
 {
-  "name": "@flowsquad/docker-cloud-build",
+  "name": "@ecologi/docker-cloud-build",
   "version": "1.0.0",
   "private": true,
   "description": "Builds a docker image using Google Cloud Build and pushes it to Google Container Registry.",
-  "author": "Alexander Praschek <alexander.praschek@flowsquad.io>",
-  "homepage": "https://github.com/FlowSquad/docker-cloud-build",
+  "author": "Cass Winfrey <cass.winfrey@ecologi.com>",
+  "homepage": "https://github.com/ecologi/docker-cloud-build",
   "bugs": {
-    "url": "https://github.com/FlowSquad/docker-cloud-build/issues"
+    "url": "https://github.com/ecologi/docker-cloud-build/issues"
   },
   "license": "Apache-2.0",
   "files": [
@@ -15,7 +15,7 @@
   "main": "dist/index.js",
   "repository": {
     "type": "git",
-    "url": "ssh://git@github.com/FlowSquad/docker-cloud-build.git"
+    "url": "ssh://git@github.com/ecologi/docker-cloud-build.git"
   },
   "scripts": {
     "build": "tsc",

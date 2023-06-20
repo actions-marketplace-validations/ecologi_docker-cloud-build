@@ -1,4 +1,4 @@
-name: "SU GCP Cloud Build"
+name: "Ecologi GCP Cloud Build"
 description: "Builds a docker image using Google Cloud Build and pushes it to Google Container Registry."
 author: "Alexander Praschek <alexander.praschek@flowsquad.io>"
 inputs:
@@ -15,6 +15,10 @@ inputs:
     description: >-
       Google Cloud Storage Bucket used to temporarily store build input files.
       If not specified, the default value is ${gcp-project-id}_cloudbuild.
+  gcp-machine-type:
+    required: false
+    description: >-
+      The machine type to use for the build
   gcp-gcr-region:
     required: false
     description: >-
